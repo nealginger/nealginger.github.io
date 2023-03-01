@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GingerXY</title>
+        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+        <link rel="stylesheet" href="app.css">    
+        <style>
+            body {
+                font-size: 16px;
+            }
+            .defaultText {
+                font-size: 2em;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+            }
+            #clickMeBtn {
+                width: 100px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <a role="button" href="index.html">Back</a>
+            <a role="button" href="#" id="restartBtn">Restart</a>
+        </div>
+        <div id="showClickCount" class="defaultText"></div>
+        <img src="shiny.png" id="clickMeBtn" class="defaultText" alt="Click Me!" />
+        <h1>Time Left: <div id="time"></div></h1>
+        <script>
+            document.querySelector('div.defaultText').style.fontSize = "3em";
+            let count = 0;
+            let seconds = 60;
+            function clickBtn(event){
+                count++;
+                console.log(count);
+                document.querySelector('#showClickCount').innerHTML = count;
+                this.style.top = Math.random() * 90 + '%';
+                this.style.left = Math.random() * 90 + '%';
+            }
+            let i = setInterval(function(){
+                seconds--;
+                if(seconds <= 0){
+                    document.getElementById("clickMeBtn").removeEventListener('click', clickBtn);
+                    clearInterval(i);
+                }
+                document.getElementById("time").innerHTML = seconds;
+            }, 1000)
+            document.getElementById("clickMeBtn").addEventListener('click', clickBtn)
+            document.getElementById("restartBtn").addEventListener('click', function(){
+                location.reload();
+                // location.href = "https://youtube.com";
+            })
+        </script>
+    </body>
+</html>
